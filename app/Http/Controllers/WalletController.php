@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Currency;
+use App\Http\Requests\WalletRequest;
 use App\User;
 use App\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class WalletController extends Controller
 {
 
     public function getWallets(Request $request)
-    {       $userData = Auth::user();
+    {
+        $userData = Auth::user();
         $currencies =  Currency::get();
         $user = User::where('id', $userData->id)->with('wallets')->first();
 
@@ -31,13 +35,24 @@ class WalletController extends Controller
 
     public function exchangeWallet(Request $request)
     {
+        $request->validate([
+            'walletFromCurrency' => 'required|exists:currencies,id',
+            'walletToCurrency' => 'required|exists:currencies,id',
+        ]);
+
+
         $userData = Auth::user();
 
         $userWallets = $this->getUserWallets($userData->id);
 
         $walletFromExchange = $userWallets->where('currency_id', $request->walletFromCurrency)->first();
 
-        if ($walletFromExchange == null || $walletFromExchange->balance == 0){
+
+        if ($walletFromExchange == null){
+            return response()->json(['message' => 'Carteira inválida']);
+        }
+
+        if ($walletFromExchange->balance == 0){
             return response()->json(['message' => 'Carteira não possui saldo']);
         }
 
