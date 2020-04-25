@@ -10,9 +10,23 @@ Faça um fork deste repositório que contém o bootstrap de uma aplicação Lara
 
 Ao finalizar o teste, submeta um pull request para o repositório e nosso time será notificado.
 
+
+### Testando a API
+
+Para testar, pode importar no postman o arquivo test-back.postman_collection.json que pode ser encontrado dentro da pasta do projeto. 
+
+Solicite o token na rota '/api/user/auth' passando como parâmetro o usuário que pode ser criado através dos seeders.
+
+Para listar as moedas do usuário e realizar conversões, deve ser feita uma requisição para a rota '/api/user/wallets' passando na requisição o token do usuário que foi gerado no passo anterior. 
+
+Para conversões, a requisição deve ser feita para a rota '/api/user/exchange', incluindo além do token, dois campos que são 'walletFromCurrency' e 'walletToCurrency', sendo eles a moeda a ser convertida e a carteira a ser criada/atualizada. 
+
+
+
 ### Tarefas
 
-- [ ] Endpoint que liste as moedas e o saldo de um usuário de cada uma e seu valor de conversão como no exemplo abaixo:
+- [x] Endpoint que liste as moedas e o saldo de um usuário de cada uma e seu valor de conversão como no exemplo abaixo:
+
 
 ```json
 {
@@ -41,17 +55,17 @@ Ao finalizar o teste, submeta um pull request para o repositório e nosso time s
 }
 ```
 
-- [ ] Endpoint para realizar uma conversão de moedas (usar como referência o menu **EXCHANGE** do template)
+- [x] Endpoint para realizar uma conversão de moedas (usar como referência o menu **EXCHANGE** do template)
 
 ### Requisitos
 
-- [ ] Todos os endpoints só podem ser acessados por usuários autenticados.
+- [x] Todos os endpoints só podem ser acessados por usuários autenticados.
 
-- [ ] A autenticação deve ser feita utilizando **Laravel Passport**.
+- [x] A autenticação deve ser feita utilizando **Laravel Passport**.
 
-- [ ] Criar um seeder para popular o banco com um usuário inicial, as moedas e suas carteiras.
+- [x] Criar um seeder para popular o banco com um usuário inicial, as moedas e suas carteiras.
 
-- [ ] Antes de efetuar a conversão de moedas, verificar se o usuário possui saldo na carteira.
+- [x] Antes de efetuar a conversão de moedas, verificar se o usuário possui saldo na carteira.
 
 ### Dicas
 

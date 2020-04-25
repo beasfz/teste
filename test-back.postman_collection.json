@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "e1c1583b-8435-496e-ae10-4e929bb2a34f",
+		"name": "test-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Make auth",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "lnaguiar@outlook.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "teste@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/user/auth",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get wallets",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGE1M2UwNmIxZDQ5NzgwZDJlN2M3YjgzMGY3ZTE3MjI4Y2IwNzQ1MmVmZjU3ZWFjNzM5YjU5Zjc2NWExZDk5MDNjYzI1ODc4M2QyOTRjY2QiLCJpYXQiOjE1ODc3MDU0NDUsIm5iZiI6MTU4NzcwNTQ0NSwiZXhwIjoxNjE5MjQxNDQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jLHrTu9JWQj0lG0KEmWR1WtMkf341vmZKZeSBnzjUx6jPnR71sMO8UqQTmxZzmn_CZl6qfWtpGsrY59YrO8QjXKLMuNbjvwQ1QfWPz1Po1hScYqBB4-a6l16tPr7m6O1FYWMIZ4BfoI50EHS97q3lJRWJOXe7oFRfwShlbwefNzRkbp_iI-KD84fl9ieYkvnnnbjwHtTy5z7oSiM_YKWO_DhspyHhzca5LJgegVADKLm-BgiX9H-S4m3DmBjLLosZOQpO7Cu3dxI3wUF1BIE14--HoVypgfaBlq_F5dkKd3KWiZo8Amu42hki16SSgqdJ3wEmCFlF7JQBlQAz2vLd2uu41sR4JormSoFkS9vltkuSourJ9MSpBYh9JhOyPoK1gPfsWW8cIbrXMYpVt_TqFnifKyVobjviVHmsFiy0gt1U6By50SoG3A31CE-3QXwoyRR-wVgG-NAlbMcKQ85hMH4q5pROVrokjddx7fscmgFHNIwEcmuMldbbcxJQy1DrkuI2E9sTaxikzAqQG25vXdZKDtOZoxmpG-I-NIzfZqqFLnWxh0b74uNug4vH47UB6ns3dyN0JtTCHYUHrhlWYE80111ZdffNZMcMfAsK_bUbPkqL4uEW5RH-K8c5NoHxmfj5dNTXlJBgnqM23ZhROzVLif7CTINir6JfWly5Yc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8000/api/user/wallets",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"wallets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exchange",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGE1M2UwNmIxZDQ5NzgwZDJlN2M3YjgzMGY3ZTE3MjI4Y2IwNzQ1MmVmZjU3ZWFjNzM5YjU5Zjc2NWExZDk5MDNjYzI1ODc4M2QyOTRjY2QiLCJpYXQiOjE1ODc3MDU0NDUsIm5iZiI6MTU4NzcwNTQ0NSwiZXhwIjoxNjE5MjQxNDQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jLHrTu9JWQj0lG0KEmWR1WtMkf341vmZKZeSBnzjUx6jPnR71sMO8UqQTmxZzmn_CZl6qfWtpGsrY59YrO8QjXKLMuNbjvwQ1QfWPz1Po1hScYqBB4-a6l16tPr7m6O1FYWMIZ4BfoI50EHS97q3lJRWJOXe7oFRfwShlbwefNzRkbp_iI-KD84fl9ieYkvnnnbjwHtTy5z7oSiM_YKWO_DhspyHhzca5LJgegVADKLm-BgiX9H-S4m3DmBjLLosZOQpO7Cu3dxI3wUF1BIE14--HoVypgfaBlq_F5dkKd3KWiZo8Amu42hki16SSgqdJ3wEmCFlF7JQBlQAz2vLd2uu41sR4JormSoFkS9vltkuSourJ9MSpBYh9JhOyPoK1gPfsWW8cIbrXMYpVt_TqFnifKyVobjviVHmsFiy0gt1U6By50SoG3A31CE-3QXwoyRR-wVgG-NAlbMcKQ85hMH4q5pROVrokjddx7fscmgFHNIwEcmuMldbbcxJQy1DrkuI2E9sTaxikzAqQG25vXdZKDtOZoxmpG-I-NIzfZqqFLnWxh0b74uNug4vH47UB6ns3dyN0JtTCHYUHrhlWYE80111ZdffNZMcMfAsK_bUbPkqL4uEW5RH-K8c5NoHxmfj5dNTXlJBgnqM23ZhROzVLif7CTINir6JfWly5Yc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "walletFromCurrency",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "walletToCurrency",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					],
+					"options": {
+						"formdata": {}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/user/exchange",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"exchange"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
