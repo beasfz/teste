@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ConversionValue;
 use App\Currency;
 use App\Http\Requests\WalletRequest;
 use App\User;
@@ -17,16 +18,15 @@ class WalletController extends Controller
     public function getWallets(Request $request)
     {
         $userData = Auth::user();
-        $currencies =  Currency::get();
-        $user = User::where('id', $userData->id)->with('wallets')->first();
+        $userData->where('id', $userData->id)->with(['wallets'])->first();
 
-        foreach ($user->wallets as $wallet)
+        foreach ($userData->wallets as $wallet)
         {
             $wallets[] = [
                 'name' => $wallet->currency->name,
                 'description' => $wallet->currency->description,
                 'image' => $wallet->currency->image,
-                'conversion' => [ 'btc' =>$wallet->currency->btc_value, 'usd' => $wallet->currency->usd_value],
+                'conversion' => [ 'btc' => $wallet->currency->conversionValue->btc_value  , 'usd' => $wallet->currency->conversionValue->usd_value],
                 'balance' => $wallet->balance
             ];
         }
@@ -43,16 +43,15 @@ class WalletController extends Controller
 
         $userData = Auth::user();
 
+        $valueToExchange = $request->valueToExchange;
         $userWallets = $this->getUserWallets($userData->id);
-
         $walletFromExchange = $userWallets->where('currency_id', $request->walletFromCurrency)->first();
-
 
         if ($walletFromExchange == null){
             return response()->json(['message' => 'Carteira inválida']);
         }
 
-        if ($walletFromExchange->balance == 0){
+        if ($walletFromExchange->balance < $valueToExchange){
             return response()->json(['message' => 'Carteira não possui saldo']);
         }
 
@@ -81,7 +80,8 @@ class WalletController extends Controller
 
     private function exchange($fromWallet, $toWallet)
     {
-        $toWallet->update(['balance' => ($fromWallet->balance*$fromWallet->currency->usd_value)/$toWallet->currency->usd_value]);
+        $toWallet->update(['balance' => ($fromWallet->balance/$fromWallet->currency->conversionValue->usd_value)/$toWallet->currency->conversionValue->usd_value]);
+        $fromWallet->currency->usd_value;
         $fromWallet->update(['balance' => 0]);
     }
 

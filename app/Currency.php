@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Currency extends Model
 {
-    public function wallet()
+    public function wallets()
     {
-        return $this->belongsTo(Wallet::class);
+        return $this->hasMany(Wallet::class);
+    }
+
+    public function conversionValue()
+    {
+        return $this->hasOne(ConversionValue::class);
     }
 }
