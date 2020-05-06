@@ -8,6 +8,7 @@ use App\Http\Requests\WalletRequest;
 use App\User;
 use App\Wallet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -17,21 +18,29 @@ class WalletController extends Controller
 
     public function getWallets(Request $request)
     {
+
         $userData = Auth::user();
-        $userData->where('id', $userData->id)->with(['wallets'])->first();
+        $userData = $userData->where('id', $userData->id)->with(['wallets'])->first();
 
         foreach ($userData->wallets as $wallet)
         {
-            $wallets[] = [
+            $userWallets[] = [
                 'name' => $wallet->currency->name,
                 'description' => $wallet->currency->description,
                 'image' => $wallet->currency->image,
                 'conversion' => [ 'btc' => $wallet->currency->conversionValue->btc_value  , 'usd' => $wallet->currency->conversionValue->usd_value],
                 'balance' => $wallet->balance
             ];
+            $hasCurrencyWallet[] = $wallet->currency->id;
         }
+
+        $fakeWallets = $userData->walletsThatDoNotHave($hasCurrencyWallet);
+
+        $wallets = array_merge($userWallets,  $fakeWallets);
+
         return response()->json(['currencies' => $wallets]);
     }
+
 
     public function exchangeWallet(Request $request)
     {
@@ -39,7 +48,6 @@ class WalletController extends Controller
             'walletFromCurrency' => 'required|exists:currencies,id',
             'walletToCurrency' => 'required|exists:currencies,id',
         ]);
-
 
         $userData = Auth::user();
 
@@ -86,10 +94,6 @@ class WalletController extends Controller
     }
 
 
-    public function exchangeDetails($fromWallet, $toWallet)
-    {
-        //
-    }
 
 
 }
