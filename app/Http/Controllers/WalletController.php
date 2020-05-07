@@ -18,7 +18,6 @@ class WalletController extends Controller
 
     public function getWallets(Request $request)
     {
-
         $userData = Auth::user();
         $userData = $userData->where('id', $userData->id)->with(['wallets'])->first();
 
@@ -42,12 +41,8 @@ class WalletController extends Controller
     }
 
 
-    public function exchangeWallet(Request $request)
+    public function exchangeWallet(WalletRequest $request)
     {
-        $request->validate([
-            'walletFromCurrency' => 'required|exists:currencies,id',
-            'walletToCurrency' => 'required|exists:currencies,id',
-        ]);
 
         $userData = Auth::user();
 
@@ -86,7 +81,7 @@ class WalletController extends Controller
         return $userWallets = Wallet::where('user_id', $userId)->get();
     }
 
-    private function exchange($fromWallet, $toWallet)
+    private function exchange($fromWallet, $toWallet, $valueToExchange)
     {
         $toWallet->update(['balance' => ($fromWallet->balance/$fromWallet->currency->conversionValue->usd_value)/$toWallet->currency->conversionValue->usd_value]);
         $fromWallet->currency->usd_value;
