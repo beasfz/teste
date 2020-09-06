@@ -15,6 +15,17 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Artisan::command('setup', function () {
-    Artisan::call('migrate', ['--force' => true]);
-    Artisan::call('db:seed', ['--force' => true, '--class' => InitialSetupSeeder::class]);
+    Artisan::call('migrate', ['--force' => true], $this->getOutput());
+
+    Artisan::call('db:seed', [
+        '--force' => true, 
+        '--class' => InitialSetupSeeder::class
+    ], $this->getOutput());
+
+    Artisan::call('db:seed', [
+        '--force' => true, 
+        '--class' => DataForTestSeeder::class
+    ], $this->getOutput());
+    
+    Artisan::call('passport:install', ['--force' => true], $this->getOutput());
 });
