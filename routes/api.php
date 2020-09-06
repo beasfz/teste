@@ -36,3 +36,10 @@ Route::group([
     Route::get('/exchange/{name}', 'WalletController@getExchange');
 });
 
+Route::group([
+    'prefix' => 'ledger',
+    'middleware' => 'auth:api'
+], function () {
+    Route::get('/', 'LedgerController@ledger');
+    Route::get('/exchange/{name}', 'LedgerController@exchange');
+});
